@@ -39,6 +39,15 @@ def not_blank(question):
         else:
             return response
 
+def num_checker(question):
+    while True:
+        try:
+            response = int(input(question))
+            return response
+        
+        except ValueError:
+            print("Please enter a number")
+
 # Main Routine Goes Here
 # Ask user of they want to see instructions
 played_before = string_checker("Do you want to see the instructions? ", y_n_list, "Please Choose Yes/No.", "y")
@@ -52,6 +61,19 @@ while tickets_sold < MAX_TICKETS:
 
     if not_blank == "xxx":
         break
+
+    user_age = num_checker("What is your age? ")
+
+    if 12 <= user_age <= 120:
+        pass
+
+    elif user_age < 12:
+        print("Sorry you are too young to be watching this movie.")
+        continue
+
+    elif user_age > 120:
+        print("This may be a typo, please try again.")
+        continue
 
     tickets_sold += 1
 
