@@ -57,9 +57,9 @@ if played_before == "yes":
 
 # Loop to sell tickets
 while tickets_sold < MAX_TICKETS:
-    not_blank("Please enter your name or 'xxx' to quit: ")
+    name = not_blank("Please enter your name or 'xxx' to quit: ")
 
-    if not_blank == "xxx":
+    if name == "xxx":
         break
 
     user_age = num_checker("What is your age? ")
