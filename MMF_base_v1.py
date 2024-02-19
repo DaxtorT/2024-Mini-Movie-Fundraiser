@@ -6,6 +6,7 @@ MAX_TICKETS = 3
 tickets_sold = 0
 
 # Functions Go Here
+# Function for checking if input is a valid answer (checks from 'valid_list')
 def string_checker(question, valid_list, error, first_letter):
     while True:
         # Ask user for choice (and force lowercase)
@@ -26,10 +27,12 @@ def string_checker(question, valid_list, error, first_letter):
         print(error)
         print()
 
+# Function for printing instructions
 def instructions():
     print("Instructions go Here")
     print()
 
+# Function for checking string is not blank
 def not_blank(question):
     while True:
         response = input(question)
@@ -39,6 +42,7 @@ def not_blank(question):
         else:
             return response
 
+# Function for checking a number is valid
 def num_checker(question):
     while True:
         try:
@@ -47,6 +51,21 @@ def num_checker(question):
         
         except ValueError:
             print("Please enter a number")
+
+# Function for calculating ticket price
+def calc_ticket_price(var_age):
+    # If/Elif loop for checking age
+    # Price is $7.50 for under 16s
+    if 12 <= var_age <= 15:
+        price = 7.50
+    # Price is $10.50 for 16 - 64
+    elif 16 <= var_age <= 64:
+        price    = 10.5
+    # Price is $6.50 for seniors (64+)
+    elif 65 <= var_age <= 120:
+        price = 6.5
+    
+    return price
 
 # Main Routine Goes Here
 # Ask user of they want to see instructions
@@ -57,9 +76,9 @@ if played_before == "yes":
 
 # Loop to sell tickets
 while tickets_sold < MAX_TICKETS:
-    name = not_blank("Please enter your name or 'xxx' to quit: ")
+    user_name = not_blank("Please enter your name or 'xxx' to quit: ")
 
-    if name == "xxx":
+    if user_name == "xxx":
         break
 
     user_age = num_checker("What is your age? ")
@@ -74,6 +93,9 @@ while tickets_sold < MAX_TICKETS:
     elif user_age > 120:
         print("This may be a typo, please try again.")
         continue
+
+    ticket_cost = calc_ticket_price(user_age)
+    print(f"Age: {user_age}, Ticket Price: ${ticket_cost:.2f}")
 
     tickets_sold += 1
 
