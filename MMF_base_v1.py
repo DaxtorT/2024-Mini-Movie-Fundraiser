@@ -7,25 +7,27 @@ tickets_sold = 0
 
 # Functions Go Here
 # Function for checking if input is a valid answer (checks from 'valid_list')
-def string_checker(question, valid_list, error, first_letter):
-    while True:
+def string_checker(question, valid_list, num_letters):
+    while True:      
+        # Error message generation
+        error = f"Please choose {valid_list[0]} or {valid_list[1]}"
+
         # Ask user for choice (and force lowercase)
         response = input(question).lower()
         
-        # Runs through list and if respose is an item in list (or first letter the full name is returned)
+        # Runs through list and if response is an item in list (or first letter the full name is returned)
         for item in valid_list:
             # If 'first_letter' is set to yes then check the list for first letter and full strings
-            if first_letter == "y":
-                if response == item[0] or response == item:
+            if num_letters > 0:
+                if response == item[:num_letters] or response == item:
                     return response
             # If 'first_letter' is set to no then only check the list for full strings
-            elif first_letter == "n":
+            else:
                 if response == item:
                     return response
 
         # Output error if response not in list        
         print(error)
-        print()
 
 # Function for printing instructions
 def instructions():
@@ -69,7 +71,7 @@ def calc_ticket_price(var_age):
 
 # Main Routine Goes Here
 # Ask user of they want to see instructions
-played_before = string_checker("Do you want to see the instructions? ", y_n_list, "Please Choose Yes/No.", "y")
+played_before = string_checker("Do you want to see the instructions? ", y_n_list, 1)
 
 if played_before == "yes":
     instructions()
@@ -94,8 +96,12 @@ while tickets_sold < MAX_TICKETS:
         print("This may be a typo, please try again.")
         continue
 
+    # Calculate the cost of the ticket
     ticket_cost = calc_ticket_price(user_age)
-    print(f"Age: {user_age}, Ticket Price: ${ticket_cost:.2f}")
+
+    # Ask user for cash or credit payment method
+    payment_method = string_checker(f"How do you want to pay for your ${ticket_cost:.2f} ticket? ", payment_method_list, 2)
+    print()
 
     tickets_sold += 1
 
