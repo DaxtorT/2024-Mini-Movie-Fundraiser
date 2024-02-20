@@ -20,11 +20,11 @@ def string_checker(question, valid_list, num_letters):
             # If 'first_letter' is set to yes then check the list for first letter and full strings
             if num_letters > 0:
                 if response == item[:num_letters] or response == item:
-                    return response
+                    return item
             # If 'first_letter' is set to no then only check the list for full strings
             else:
                 if response == item:
-                    return response
+                    return item
 
         # Output error if response not in list        
         print(error)
@@ -102,6 +102,7 @@ while tickets_sold < MAX_TICKETS:
     # Ask user for cash or credit payment method
     payment_method = string_checker(f"How do you want to pay for your ${ticket_cost:.2f} ticket? ", payment_method_list, 2)
     print()
+    print(f"You chose {payment_method}")
 
     tickets_sold += 1
 
