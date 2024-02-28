@@ -1,4 +1,5 @@
 import pandas
+import random
 
 # Functions Go Here
 # Function for checking if input is a valid answer (checks from 'valid_list')
@@ -145,8 +146,7 @@ else:
     print(f"You have sold {tickets_sold} ticket/s. You have {MAX_TICKETS-tickets_sold} ticket/s remaining.")
 
 # Create the pandas table
-mini_movie_frame = pandas.DataFrame(mini_movie_dict)
-mini_movie_frame = mini_movie_frame.set_index('Name')
+mini_movie_frame = pandas.DataFrame(mini_movie_dict)\
 
 # Calculate the total ticket cost (ticket + surcharge)
 mini_movie_frame['Total'] = mini_movie_frame['Surcharge'] + mini_movie_frame['Ticket Price']
@@ -158,6 +158,19 @@ mini_movie_frame['Profit'] = mini_movie_frame['Ticket Price'] - 5
 total = mini_movie_frame['Total'].sum()
 profit = mini_movie_frame['Profit'].sum()
 
+# Raffle Winner Stuff
+# Choose a winner name from our name list
+winner_name = random.choice(all_names)
+
+# Get Position of winner name in list
+win_index = all_names.index(winner_name)
+
+# Look up total amount won (ie: ticket price + surcharge)
+total_won = mini_movie_frame.at[win_index, 'Total']
+
+# Set index at end (before printing)
+mini_movie_frame = mini_movie_frame.set_index('Name')
+
 # Currency Formatting (uses currency function)
 add_dollars = ['Ticket Price', 'Surcharge', 'Total', 'Profit']
 for var_item in add_dollars:
@@ -165,15 +178,17 @@ for var_item in add_dollars:
 
 # Table Formatting
 print("---- Ticket Data ----")
-print()
 
 # Output table with ticket data
 print(mini_movie_frame)
 print()
 
-print("---- Total Cost & Profit ----")
+# Output raffle winner
+print("---- Raffle Winner ----")
+print(f"Congratulations {winner_name}. You have won ${total_won:.2f} ie: You Ticket Is Free!")
 print()
 
 # Output total ticket sales and profit
+print("---- Total Cost & Profit ----")
 print(f"Total Ticket Sales: ${total:.2f}")
 print(f"Total Profit: ${profit:.2f}")
