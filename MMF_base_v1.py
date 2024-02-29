@@ -25,8 +25,6 @@ def string_checker(question, valid_list, num_letters):
         # Output error if response not in list        
         print(error)
 
-# Function for printing instructions
-def instructions():
     print("Instructions go Here")
     print()
 
@@ -69,11 +67,32 @@ def calc_ticket_price(var_age):
 def currency(x):
     return f"${x:.2f}" 
 
+# Function for showing instructions
+def show_instructions():
+    print('''
+***** Instructions *****
+          
+For each ticket, enter ...
+- The Person's Name (Can't be blank)
+- Age (Between 12 and 120)
+- Payment Method (Cash / Credit)
+
+When you have entered all the users, press 'xxx' to quit.
+          
+The program will then display the ticket details 
+including the cost for each ticket, the total 
+cost and total profit.
+          
+This information will automatically be written to 
+a text file
+          
+************************''')
+
 # Global Variables/Constants Go Here
 y_n_list = ["yes", "no"]
 payment_method_list = ["cash", "credit"]
 
-MAX_TICKETS = 3
+MAX_TICKETS = 5
 tickets_sold = 0
 
 # Lists & Dicts for ticket details
@@ -92,7 +111,7 @@ mini_movie_dict = {
 played_before = string_checker("Do you want to see the instructions? ", y_n_list, 1)
 
 if played_before == "yes":
-    instructions()
+    show_instructions()
 
 # Loop to sell tickets
 while tickets_sold < MAX_TICKETS:
